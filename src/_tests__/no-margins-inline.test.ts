@@ -1,20 +1,28 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils'
+import { RuleTester } from 'eslint'
 import { noMarginInline } from '../rules/no-margins-inline'
+import { describe } from 'vitest'
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('espree'),
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-  },
-})
-
-ruleTester.run('noMarginInline', noMarginInline, {
-  valid: [{ code: 'describe valid code pattern' }],
-  invalid: [
-    {
-      code: 'describe invalid code pattern',
-      errors: [{ messageId: 'noMarginInline' }],
+describe('noMarginInline', () => {
+  let ruleTester = new RuleTester({
+    languageOptions: {
+      parser: require('@babel/eslint-parser'), // Use Babel parser for JSX
+      ecmaVersion: 2020, // Use a modern ECMAScript version
+      sourceType: 'module',
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true, // Enable JSX syntax
+        },
+      },
     },
-  ],
+  })
+
+  ruleTester.run('noMarginInline', noMarginInline as any, {
+    valid: [{ code: '<div style={{ padding: "1rem" }}>valid</div>' }],
+    invalid: [
+      {
+        code: '<div style={{ margin: "1rem" }}>invalid</div>',
+        errors: [{ messageId: 'noMarginInline' }],
+      },
+    ],
+  })
 })

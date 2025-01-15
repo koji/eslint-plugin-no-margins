@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "skipLibCheck": true
+    "target": "esnext", // Target the latest ECMAScript version
+    "module": "esnext", // Use ES modules
+    "moduleResolution": "node", // Use Node.js-style module resolution
+    "strict": true, // Enable strict type-checking
+    "esModuleInterop": true, // Enable ES module interop
+    "skipLibCheck": true, // Skip library checking
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file casing
+    "outDir": "dist", // Output directory for compiled files
+    "rootDir": "src", // Root directory for source files
+    "declaration": true // Generate .d.ts files
   },
-  "include": ["./src/index.ts"]
+  "include": ["src/**/*"], // Include all files in the src directory
+  "exclude": ["node_modules"] // Exclude node_modules
 }

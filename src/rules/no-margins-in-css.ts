@@ -12,6 +12,7 @@ export const noMarginInCss: TSESLint.RuleModule<'noMarginInCssInJs', []> = {
     },
     schema: [],
   },
+  defaultOptions: [],
   create: (context) => {
     return {
       // Check for CSS-in-JS template literals

@@ -1,3 +1,57 @@
+// import { TSESLint } from '@typescript-eslint/experimental-utils'
+
+// export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
+//   meta: {
+//     type: 'suggestion',
+//     docs: {
+//       description: 'Disallow the use of margin-related styles',
+//       recommended: false,
+//     },
+//     messages: {
+//       noMarginInline: "Avoid using '{{property}}' in your components.",
+//     },
+//     schema: [],
+//   },
+//   defaultOptions: [],
+//   create: (context) => {
+//     const forbiddenMargins = [
+//       'margin',
+//       'marginLeft',
+//       'marginRight',
+//       'marginTop',
+//       'marginBottom',
+//       'marginX',
+//       'marginY',
+//     ]
+//     return {
+//       // Existing visitor for object properties
+//       Property(node) {
+//         if (forbiddenMargins.includes(node.key.name || node.key.value)) {
+//           context.report({
+//             node: node.key,
+//             messageId: 'noMarginInline',
+//             data: {
+//               property: node.key.name || node.key.value,
+//             },
+//           })
+//         }
+//       },
+//       // New visitor for JSX attributes
+//       JSXAttribute(node) {
+//         if (forbiddenMargins.includes(node.name.name)) {
+//           context.report({
+//             node: node.name,
+//             messageId: 'noMarginInline',
+//             data: {
+//               property: node.name.name,
+//             },
+//           })
+//         }
+//       },
+//     }
+//   },
+// }
+
 import { TSESLint } from '@typescript-eslint/experimental-utils'
 
 export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
@@ -12,6 +66,7 @@ export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
     },
     schema: [],
   },
+  defaultOptions: [],
   create: (context) => {
     const forbiddenMargins = [
       'margin',
@@ -24,21 +79,33 @@ export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
     ]
 
     return {
-      // Existing visitor for object properties
+      // Visitor for object properties
       Property(node) {
-        if (forbiddenMargins.includes(node.key.name || node.key.value)) {
+        // Ensure node.key is an Identifier or Literal
+        if (
+          (node.key.type === 'Identifier' &&
+            forbiddenMargins.includes(node.key.name)) ||
+          (node.key.type === 'Literal' &&
+            typeof node.key.value === 'string' &&
+            forbiddenMargins.includes(node.key.value))
+        ) {
           context.report({
             node: node.key,
             messageId: 'noMarginInline',
             data: {
-              property: node.key.name || node.key.value,
+              property:
+                node.key.type === 'Identifier' ? node.key.name : node.key.value,
             },
           })
         }
       },
-      // New visitor for JSX attributes
+      // Visitor for JSX attributes
       JSXAttribute(node) {
-        if (forbiddenMargins.includes(node.name.name)) {
+        // Ensure node.name is a JSXIdentifier
+        if (
+          node.name.type === 'JSXIdentifier' &&
+          forbiddenMargins.includes(node.name.name)
+        ) {
           context.report({
             node: node.name,
             messageId: 'noMarginInline',

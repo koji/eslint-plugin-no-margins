@@ -1,6 +1,6 @@
 import { TSESLint } from '@typescript-eslint/experimental-utils'
 
-export const noMarginInCss: TSESLint.RuleModule<'noMarginInCssInJs', []> = {
+export const noMarginInCss: TSESLint.RuleModule<'noMarginInCss', []> = {
   meta: {
     type: 'suggestion',
     docs: {
@@ -8,17 +8,23 @@ export const noMarginInCss: TSESLint.RuleModule<'noMarginInCssInJs', []> = {
       recommended: false,
     },
     messages: {
-      noMarginInCssInJs: "Avoid using '{{property}}' in css-in-js.",
+      noMarginInCss: "Avoid using '{{property}}' in css-in-js.",
     },
     schema: [],
   },
   defaultOptions: [],
   create: (context) => {
+    const forbiddenMargins = [
+      'margin',
+      'margin-left',
+      'margin-right',
+      'margin-top',
+      'margin-bottom',
+    ]
+
     return {
       // Check for CSS-in-JS template literals
       TaggedTemplateExpression(node) {
-        const forbiddenMargins = ['margin']
-
         if (node.tag.type === 'Identifier' && node.tag.name === 'css') {
           const templateLiteral = node.quasi
           templateLiteral.quasis.forEach((quasi) => {
@@ -28,7 +34,7 @@ export const noMarginInCss: TSESLint.RuleModule<'noMarginInCssInJs', []> = {
               if (regex.test(text)) {
                 context.report({
                   node: quasi,
-                  messageId: 'noMarginInCssInJs',
+                  messageId: 'noMarginInCss',
                   data: {
                     property,
                   },

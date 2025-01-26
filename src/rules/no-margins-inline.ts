@@ -1,4 +1,5 @@
 import { TSESLint } from '@typescript-eslint/experimental-utils'
+import { forbiddenMargins } from './constants'
 
 export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
   meta: {
@@ -14,16 +15,6 @@ export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
   },
   defaultOptions: [],
   create: (context) => {
-    const forbiddenMargins = [
-      'margin',
-      'marginLeft',
-      'marginRight',
-      'marginTop',
-      'marginBottom',
-      'marginX', // custom property
-      'marginY', // custom property
-    ]
-
     return {
       // Visitor for object properties
       Property(node) {

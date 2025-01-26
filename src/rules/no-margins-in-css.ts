@@ -1,4 +1,5 @@
 import { TSESLint } from '@typescript-eslint/experimental-utils'
+import { forbiddenMargins } from './constants'
 
 export const noMarginInCss: TSESLint.RuleModule<'noMarginInCss', []> = {
   meta: {
@@ -14,14 +15,6 @@ export const noMarginInCss: TSESLint.RuleModule<'noMarginInCss', []> = {
   },
   defaultOptions: [],
   create: (context) => {
-    const forbiddenMargins = [
-      'margin',
-      'margin-left',
-      'margin-right',
-      'margin-top',
-      'margin-bottom',
-    ]
-
     return {
       // Check for CSS-in-JS template literals
       TaggedTemplateExpression(node) {

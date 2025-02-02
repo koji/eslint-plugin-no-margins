@@ -1,6 +1,6 @@
 import { RuleTester } from 'eslint'
 import { describe } from 'vitest'
-import { noMarginInCss } from './../rules/no-margins-in-css'
+import { noMarginInCss } from './../rules'
 
 describe('noMarginInCss', () => {
   let ruleTester = new RuleTester({

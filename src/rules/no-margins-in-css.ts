@@ -22,18 +22,21 @@ export const noMarginsInCss: TSESLint.RuleModule<'noMarginsInCss', []> = {
           const templateLiteral = node.quasi
           templateLiteral.quasis.forEach((quasi) => {
             const text = quasi.value.raw
-            forbiddenMargins.forEach((property) => {
+            // Find the first matching margin property
+            const foundMargin = forbiddenMargins.find((property) => {
               const regex = new RegExp(`\\b${property}\\b`, 'i')
-              if (regex.test(text)) {
-                context.report({
-                  node: quasi,
-                  messageId: 'noMarginsInCss',
-                  data: {
-                    property,
-                  },
-                })
-              }
+              return regex.test(text)
             })
+            
+            if (foundMargin) {
+              context.report({
+                node: quasi,
+                messageId: 'noMarginsInCss',
+                data: {
+                  property: foundMargin,
+                },
+              })
+            }
           })
         }
       },

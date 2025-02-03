@@ -21,7 +21,7 @@ describe('noMarginsInCss', () => {
     invalid: [
       {
         code: 'const style = css`margin-top: 1rem;`',
-        errors: [{ messageId: 'noMarginsInCssInJs' }], // Use the correct messageId
+        errors: [{ messageId: 'noMarginsInCss' }],
       },
     ],
   })

@@ -21,6 +21,8 @@ pnpm add -D eslint-plugin-no-margins
 
 ## Usage
 
+### eslint.config.js
+
 ```js
 import js from '@eslint/js'
 import globals from 'globals'
@@ -48,6 +50,8 @@ export default tseslint.config(
 )
 ```
 
+### react code
+
 ```tsx
 import js from '@eslint/js'
 import globals from 'globals'
@@ -74,6 +78,8 @@ export default tseslint.config(
   }
 )
 ```
+
+### check margins
 
 ```shell
 yarn run eslint src/App.tsx

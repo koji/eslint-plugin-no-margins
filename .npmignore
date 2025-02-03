@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+.DS_Store
+.tool-versions
+src/__tests__/
+*.test.ts
+vitest.config.mts
+.gitignore

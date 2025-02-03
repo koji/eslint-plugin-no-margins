@@ -1,7 +1,7 @@
 import { TSESLint } from '@typescript-eslint/experimental-utils'
 import { forbiddenMargins } from './constants'
 
-export const noMarginInCss: TSESLint.RuleModule<'noMarginInCss', []> = {
+export const noMarginsInCss: TSESLint.RuleModule<'noMarginsInCss', []> = {
   meta: {
     type: 'suggestion',
     docs: {
@@ -9,7 +9,7 @@ export const noMarginInCss: TSESLint.RuleModule<'noMarginInCss', []> = {
       recommended: false,
     },
     messages: {
-      noMarginInCss: "Avoid using '{{property}}' in css-in-js.",
+      noMarginsInCss: "Avoid using '{{property}}' in css-in-js.",
     },
     schema: [],
   },
@@ -22,18 +22,21 @@ export const noMarginInCss: TSESLint.RuleModule<'noMarginInCss', []> = {
           const templateLiteral = node.quasi
           templateLiteral.quasis.forEach((quasi) => {
             const text = quasi.value.raw
-            forbiddenMargins.forEach((property) => {
+            // Find the first matching margin property
+            const foundMargin = forbiddenMargins.find((property) => {
               const regex = new RegExp(`\\b${property}\\b`, 'i')
-              if (regex.test(text)) {
-                context.report({
-                  node: quasi,
-                  messageId: 'noMarginInCss',
-                  data: {
-                    property,
-                  },
-                })
-              }
+              return regex.test(text)
             })
+            
+            if (foundMargin) {
+              context.report({
+                node: quasi,
+                messageId: 'noMarginsInCss',
+                data: {
+                  property: foundMargin,
+                },
+              })
+            }
           })
         }
       },

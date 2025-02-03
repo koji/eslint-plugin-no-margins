@@ -1,17 +1,22 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils';
-import { noMarginInline, noMarginInCss } from './rules/';
+import { TSESLint } from '@typescript-eslint/experimental-utils'
+import { noMarginsInline, noMarginsInCss } from './rules/'
 
 export const rules: Record<string, TSESLint.RuleModule<string, unknown[]>> = {
-  'no-margin-inline': noMarginInline,
-  'no-margin-in-css': noMarginInCss,
-};
+  'no-margins-inline': noMarginsInline,
+  'no-margins-in-css': noMarginsInCss,
+}
 
 export const configs = {
   recommended: {
     plugins: ['no-margins'],
     rules: {
-      'no-margin-inline': 'warn',
-      'no-margin-in-css': 'warn',
+      'no-margins-inline': 'warn',
+      'no-margins-in-css': 'warn',
     },
   },
-};
+}
+
+  export default {
+    rules,
+    configs,
+  }

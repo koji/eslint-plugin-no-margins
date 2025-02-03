@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         # node-version: [18.x, 20.x, 22.x]  # Expanded versions
-        node-version: [22.x]  # Expanded versions
+        node-version: [22.x] # Expanded versions
 
     steps:
       - name: Checkout code
@@ -20,11 +20,9 @@ jobs:
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
-      
-      - uses: pnpm/action-setup@v4
 
       - name: Install dependencies
-        run: pnpm install
+        run: yarn install
 
       - name: Run tests
-        run: pnpm run test
+        run: yarn run test run

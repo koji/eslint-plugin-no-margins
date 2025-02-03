@@ -4,23 +4,29 @@ import typescript from '@rollup/plugin-typescript'
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/index.ts', // Entry point for the build
-      name: 'eslintPluginTemplate', // Global variable name for the library
-      fileName: 'index', // Output file name
-      formats: ['es', 'cjs'], // Output formats (ES and CommonJS)
+      entry: 'src/index.ts',
+      name: 'eslintPluginNoMargins',
+      fileName: (format) => {
+        return format === 'es' ? 'index.js' : 'index.cjs'
+      },
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['eslint'], // Externalize dependencies
+      external: [
+        'eslint',
+        '@typescript-eslint/experimental-utils'
+      ],
       output: {
         globals: {
-          eslint: 'eslint', // Map external dependencies to global variables
+          eslint: 'eslint',
+          '@typescript-eslint/experimental-utils': 'typescriptEslintUtils'
         },
       },
     },
   },
   plugins: [
     typescript({
-      tsconfig: './tsconfig.json', // Path to your tsconfig.json
+      tsconfig: './tsconfig.json',
     }),
   ],
 })

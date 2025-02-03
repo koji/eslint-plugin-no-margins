@@ -1,7 +1,7 @@
 import { TSESLint } from '@typescript-eslint/experimental-utils'
 import { forbiddenMargins } from './constants'
 
-export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
+export const noMarginsInline: TSESLint.RuleModule<'noMarginsInline', []> = {
   meta: {
     type: 'suggestion',
     docs: {
@@ -9,7 +9,7 @@ export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
       recommended: false,
     },
     messages: {
-      noMarginInline: "Avoid using '{{property}}' in your components.",
+      noMarginsInline: "Avoid using '{{property}}' in your components.",
     },
     schema: [],
   },
@@ -28,7 +28,7 @@ export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
         ) {
           context.report({
             node: node.key,
-            messageId: 'noMarginInline',
+            messageId: 'noMarginsInline',
             data: {
               property:
                 node.key.type === 'Identifier' ? node.key.name : node.key.value,
@@ -45,7 +45,7 @@ export const noMarginInline: TSESLint.RuleModule<'noMarginInline', []> = {
         ) {
           context.report({
             node: node.name,
-            messageId: 'noMarginInline',
+            messageId: 'noMarginsInline',
             data: {
               property: node.name.name,
             },

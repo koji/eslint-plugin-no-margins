@@ -2,10 +2,14 @@
   "name": "eslint-plugin-no-margins",
   "version": "0.0.1",
   "description": "ESLint plugin to enforce consistent spacing by preventing the use of margin properties in CSS-in-JS. Helps maintain consistent layout patterns across your React components.",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "type": "module",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   },
   "keywords": [
     "eslint",

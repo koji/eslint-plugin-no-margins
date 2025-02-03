@@ -1,8 +1,8 @@
 import { RuleTester } from 'eslint'
 import { describe } from 'vitest'
-import { noMarginInCss } from './../rules'
+import { noMarginsInCss } from './../rules'
 
-describe('noMarginInCss', () => {
+describe('noMarginsInCss', () => {
   let ruleTester = new RuleTester({
     languageOptions: {
       parser: require('@babel/eslint-parser'), // Use Babel parser for JSX
@@ -16,12 +16,12 @@ describe('noMarginInCss', () => {
     },
   })
 
-  ruleTester.run('noMarginInCss', noMarginInCss as any, {
+  ruleTester.run('noMarginsInCss', noMarginsInCss as any, {
     valid: [{ code: 'const style = css`padding-top: 1rem;`' }],
     invalid: [
       {
         code: 'const style = css`margin-top: 1rem;`',
-        errors: [{ messageId: 'noMarginInCssInJs' }], // Use the correct messageId
+        errors: [{ messageId: 'noMarginsInCssInJs' }], // Use the correct messageId
       },
     ],
   })

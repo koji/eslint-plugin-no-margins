@@ -24,7 +24,7 @@
   "scripts": {
     "build": "vite build",
     "test": "vitest",
-    "publish": "npm publish"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.26.5",
@@ -38,11 +38,10 @@
     "@typescript-eslint/utils": "^8.20.0",
     "@vitest/coverage-istanbul": "2.1.8",
     "eslint": "^9.18.0",
-    "typescript": "^5.7.3"
-  },
-  "dependencies": {
+    "typescript": "^5.7.3",
     "vite": "^6.0.7",
     "vitest": "^2.1.8"
   },
+  "dependencies": {},
   "packageManager": "yarn@1.22.22"
 }
